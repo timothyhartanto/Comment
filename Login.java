@@ -11,8 +11,11 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,12 +23,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends Activity implements OnClickListener{
+public class Login extends AppCompatActivity implements OnClickListener{
 
     private EditText user, pass;
     private Button mSubmit, mRegister;
-    String username, password;
-
+    private String username, password;
     // Progress Dialog
     private ProgressDialog pDialog;
 
@@ -33,21 +35,14 @@ public class Login extends Activity implements OnClickListener{
     JSONParser jsonParser = new JSONParser();
 
     //php login script location:
+    private static final String LOGIN_URL = "http://192.168.13.1:8080/webservice/login.php";
 
-
-    //testing on Emulator:
-    private static final String LOGIN_URL = "http://xxx.xxx.xxx.xxx:8080/webservice/login.php";
-
-    //testing from a real server:
-    //private static final String LOGIN_URL = "http://www.yourdomain.com/webservice/login.php";
-
-    //JSON element ids from repsonse of php script:
+    //JSON element ids from response of php script:
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
@@ -67,7 +62,6 @@ public class Login extends Activity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.login:
                 username = user.getText().toString();
@@ -75,10 +69,9 @@ public class Login extends Activity implements OnClickListener{
                 new AttemptLogin().execute(username, password);
                 break;
             case R.id.register:
-//                Intent i = new Intent(this, Register.class);
-//                startActivity(i);
+                Intent i = new Intent(this, Register.class);
+                startActivity(i);
                 break;
-
             default:
                 break;
         }
@@ -103,38 +96,44 @@ public class Login extends Activity implements OnClickListener{
 
         @Override
         protected String doInBackground(String... args) {
-            //pDialog.dismiss();
-            // TODO Auto-generated method stub
             // Check for success tag
             int success;
-//            String username = user.getText().toString();
-//            String password = pass.getText().toString();
             String username = args[0];
             String password = args[1];
+
             try {
                 // Building Parameters
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
 
-                //Log.d("request!", "starting");
+                Log.d("request!", "starting");
                 // getting product details by making HTTP request
                 JSONObject json = jsonParser.makeHttpRequest(
                         LOGIN_URL, "POST", params);
+                if(json == null)
+                    return null;
 
                 // check your log for json response
-                //Log.d("Login attempt", json.toString());
+                Log.d("Login attempt", json.toString());
 
                 // json success tag
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    //Log.d("Login Successful!", json.toString());
+                    Log.d("Login Successful!", json.toString());
+                    // save user data
+//                    SharedPreferences sp = PreferenceManager
+//                            .getDefaultSharedPreferences(Login.this);
+//                    SharedPreferences.Editor edit = sp.edit();
+//                    edit.putString("username", username);
+//                    edit.commit();
+
                     Intent i = new Intent(Login.this, ReadComments.class);
                     finish();
                     startActivity(i);
                     return json.getString(TAG_MESSAGE);
                 }else{
-                    //Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+                    Log.d("Login Failure!", json.getString(TAG_MESSAGE));
                     return json.getString(TAG_MESSAGE);
 
                 }
