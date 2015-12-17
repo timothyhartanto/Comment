@@ -39,20 +39,10 @@ public class ReadComments extends ListActivity {
     // Progress Dialog
     private ProgressDialog pDialog;
 
-    //php read comments script
-
     //localhost :
-    //testing on your device
-    //put your local ip instead,  on windows, run CMD > ipconfig
-    //or in mac's terminal type ifconfig and look for the ip under en0 or en1
-    // private static final String READ_COMMENTS_URL = "http://xxx.xxx.x.x:1234/webservice/comments.php";
 
-    //testing on Emulator:
     private static final String READ_COMMENTS_URL = "http://192.168.13.1:8080/webservice/comments.php";
-
-    //testing from a real server:
-    //private static final String READ_COMMENTS_URL = "http://www.mybringback.com/webservice/comments.php";
-
+    
     //JSON IDS:
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_TITLE = "title";
@@ -199,7 +189,6 @@ public class ReadComments extends ListActivity {
 
         @Override
         protected Boolean doInBackground(Void... arg0) {
-            //we will develop this method in version 2
             updateJSONdata();
             return null;
 
@@ -210,7 +199,6 @@ public class ReadComments extends ListActivity {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             pDialog.dismiss();
-            //we will develop this method in version 2
             updateList();
         }
     }
