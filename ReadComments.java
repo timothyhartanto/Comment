@@ -42,7 +42,7 @@ public class ReadComments extends ListActivity {
     //localhost :
 
     private static final String READ_COMMENTS_URL = "http://192.168.13.1:8080/webservice/comments.php";
-    
+
     //JSON IDS:
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_TITLE = "title";
@@ -180,16 +180,19 @@ public class ReadComments extends ListActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ReadComments.this);
-            pDialog.setMessage("Loading Comments...");
+            //pDialog = new ProgressDialog(ReadComments.this);
+            pDialog = ProgressDialog.show(ReadComments.this, "Comments","Loading Comments...");
+            //pDialog.setMessage("Loading Comments...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
-            pDialog.show();
+
+           // pDialog.show();
         }
 
         @Override
         protected Boolean doInBackground(Void... arg0) {
             updateJSONdata();
+            pDialog.dismiss();
             return null;
 
         }
@@ -198,7 +201,7 @@ public class ReadComments extends ListActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            pDialog.dismiss();
+                pDialog.dismiss();
             updateList();
         }
     }
