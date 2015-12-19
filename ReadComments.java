@@ -41,7 +41,7 @@ public class ReadComments extends ListActivity {
 
     //localhost :
 
-    private static final String READ_COMMENTS_URL = "http://192.168.13.1:8080/webservice/comments.php";
+    private static final String READ_COMMENTS_URL = "http://webservice/comments.php";
 
     //JSON IDS:
     private static final String TAG_SUCCESS = "success";
@@ -200,7 +200,7 @@ public class ReadComments extends ListActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
+            //super.onPostExecute(result);
                 pDialog.dismiss();
             updateList();
         }
