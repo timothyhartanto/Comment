@@ -74,7 +74,7 @@ public class ReadComments extends ListActivity {
         // TODO Auto-generated method stub
         super.onResume();
         //loading the comments via AsyncTask
-        new LoadComments().execute();
+        //new LoadComments().execute();
     }
 
 //    public void addComment(View v) {
