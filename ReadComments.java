@@ -77,10 +77,10 @@ public class ReadComments extends ListActivity {
         //new LoadComments().execute();
     }
 
-//    public void addComment(View v) {
-//        Intent i = new Intent(ReadComments.this, AddComment.class);
-//        startActivity(i);
-//    }
+    public void addComment(View v) {
+        Intent i = new Intent(ReadComments.this, AddComment.class);
+        startActivity(i);
+    }
 
     /**
      * Retrieves json data of comments
