@@ -34,7 +34,7 @@ public class AddComment extends Activity implements OnClickListener{
 
     //php login script
 
-    private static final String POST_COMMENT_URL = "http://10.0.2.2:1234/webservice/addcomment.php";
+    private static final String POST_COMMENT_URL = "http://xx.xx.xx.xx/webservice/addcomment.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
