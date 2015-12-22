@@ -1,12 +1,9 @@
 package com.example.proto.comment;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,21 +12,13 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 /**
  * Created by Proto on 12/13/2015.
@@ -37,11 +26,9 @@ import android.widget.TextView;
 public class ReadComments extends ListActivity {
 
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private static ProgressDialog pDialog;
 
-    //localhost :
-
-    private static final String READ_COMMENTS_URL = "http://webservice/comments.php";
+    private static final String READ_COMMENTS_URL = "http://192.168.13.1:8080/webservice/comments.php";
 
     //JSON IDS:
     private static final String TAG_SUCCESS = "success";
@@ -67,14 +54,14 @@ public class ReadComments extends ListActivity {
         //note that use read_comments.xml instead of our single_post.xml
         setContentView(R.layout.read_comments);
         new LoadComments().execute();
+        pDialog.dismiss();
     }
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
-        //loading the comments via AsyncTask
-        //new LoadComments().execute();
+        new LoadComments().execute();
+        pDialog.dismiss();
     }
 
     public void addComment(View v) {
@@ -117,7 +104,7 @@ public class ReadComments extends ListActivity {
                 //gets the content of each tag
                 String title = c.getString(TAG_TITLE);
                 String content = c.getString(TAG_MESSAGE);
-                String username = c.getString(TAG_USERNAME);
+                String username = "Username : " + c.getString(TAG_USERNAME);
 
 
                 // creating new HashMap
@@ -192,7 +179,6 @@ public class ReadComments extends ListActivity {
         @Override
         protected Boolean doInBackground(Void... arg0) {
             updateJSONdata();
-            pDialog.dismiss();
             return null;
 
         }
@@ -201,8 +187,8 @@ public class ReadComments extends ListActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             //super.onPostExecute(result);
-                pDialog.dismiss();
             updateList();
+            pDialog.dismiss();
         }
     }
 }
