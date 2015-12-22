@@ -8,7 +8,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +34,8 @@ public class Login extends AppCompatActivity implements OnClickListener{
     JSONParser jsonParser = new JSONParser();
 
     //php login script location:
+    //192.168.1.7:8080
+    //192.168.13.1:8080
     private static final String LOGIN_URL = "http://192.168.13.1:8080/webservice/login.php";
 
     //JSON element ids from response of php script:
@@ -87,8 +88,9 @@ public class Login extends AppCompatActivity implements OnClickListener{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Login.this);
-            pDialog.setMessage("Attempting login...");
+            //pDialog = new ProgressDialog(Login.this);
+            pDialog = ProgressDialog.show(Login.this, "Login", "Attempting login...");
+            //pDialog.setMessage("Attempting login...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -122,11 +124,11 @@ public class Login extends AppCompatActivity implements OnClickListener{
                 if (success == 1) {
                     Log.d("Login Successful!", json.toString());
                     // save user data
-//                    SharedPreferences sp = PreferenceManager
-//                            .getDefaultSharedPreferences(Login.this);
-//                    SharedPreferences.Editor edit = sp.edit();
-//                    edit.putString("username", username);
-//                    edit.commit();
+                    SharedPreferences sp = PreferenceManager
+                            .getDefaultSharedPreferences(Login.this);
+                    SharedPreferences.Editor edit = sp.edit();
+                    edit.putString("username", username);
+                    edit.commit();
 
                     Intent i = new Intent(Login.this, ReadComments.class);
                     finish();
@@ -149,7 +151,10 @@ public class Login extends AppCompatActivity implements OnClickListener{
          * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
+            //pDialog.dismiss();
+            if(pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
             if (file_url != null){
                 Toast.makeText(Login.this, file_url, Toast.LENGTH_LONG).show();
             }
