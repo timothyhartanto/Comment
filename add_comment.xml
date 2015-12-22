@@ -3,68 +3,67 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Android Remote Server Tutorial"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Remote Server Tutorial"
+                android:id="@+id/textView"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageView1"
-        android:text="Title"
-        android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ttile"
+                android:id="@+id/tv_title"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="250dp" />
 
-    <EditText
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_below="@+id/TextView01"
-        android:ems="10"
-        />
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_title" />
 
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/title"
-        android:layout_marginTop="14dp"
-        android:text="Message"
-        android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message"
+                android:id="@+id/tv_message"
+                android:layout_below="@+id/title"
+                android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:ems="10" >
+            <EditText
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_message" />
 
-        <requestFocus />
-    </EditText>
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_alignLeft="@+id/message"
+                android:layout_alignRight="@+id/message"
+                android:layout_below="@+id/message" />
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Submit" />
-
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
